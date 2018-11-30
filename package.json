@@ -1,0 +1,46 @@
+{
+  "name": "react-usemiddleware",
+  "version": "1.0.0",
+  "description": "React >=16.7 hook, allowing to use standard Redux middleware",
+  "scripts": {
+    "clean": "rimraf lib dist es",
+    "prepare": "npm run clean && npm run build",
+    "build": "npm run build:commonjs && npm run build:es",
+    "build:commonjs": "cross-env BABEL_ENV=commonjs babel src --out-dir lib",
+    "build:es": "cross-env BABEL_ENV=es babel src --out-dir es",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/venil7/react-usemiddleware.git"
+  },
+  "keywords": [
+    "react",
+    "hook",
+    "middleware",
+    "redux"
+  ],
+  "author": "Art Deineka",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "files": [
+    "lib",
+    "es",
+    "src"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/venil7/react-usemiddleware/issues"
+  },
+  "homepage": "https://github.com/venil7/react-usemiddleware#readme",
+  "peerDependencies": {
+    "redux": "^4.0.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "cross-env": "^5.2.0",
+    "rifraf": "^2.0.3",
+    "webpack": "^4.26.1"
+  }
+}
