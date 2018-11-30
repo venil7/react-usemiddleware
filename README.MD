@@ -1,5 +1,8 @@
 # React `useMiddleware` hook
 
+[![npm version](https://img.shields.io/npm/v/react-usemiddleware.svg?style=flat-square)](https://www.npmjs.com/package/react-usemiddleware)
+
+
 Redux compatible [middleware](https://redux.js.org/advanced/middleware) provider for React >=16.7 [Hooks](https://reactjs.org/docs/hooks-intro.html)
 
 **React-useMiddleware** allows you to use Redux existing middleware with React's new feature called hooks.
@@ -19,9 +22,9 @@ $ yarn add react-middleware
 ```
 
 Takes 3 parameters:
- - middlewares - array of middlewares, eg, `[thunk, createLoggers, ...]`
- - reducer, same as passed into `useReducer` hook
- - initialState, same as passed into `useReducer` hook
+ - `middlewares` - array of middlewares, eg, `[thunk, createLogger, saga]`
+ - `reducer`, same as passed into `useReducer` hook
+ - `initialState`, same as passed into `useReducer` hook
 
 ## Example
 
