@@ -1,6 +1,6 @@
 {
   "name": "react-usemiddleware",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "React >=16.7 hook, allowing to use standard Redux middleware",
   "scripts": {
     "clean": "rimraf lib dist es",
@@ -34,7 +34,8 @@
   },
   "homepage": "https://github.com/venil7/react-usemiddleware#readme",
   "peerDependencies": {
-    "redux": "^4.0.1"
+    "redux": "^4.0.1",
+    "react": "~16.7.x"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

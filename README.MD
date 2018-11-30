@@ -26,13 +26,10 @@ Takes 3 parameters:
 ## Example
 
 ```
-import React from "react";
-import ReactDOM from "react-dom";
-import { useReducer, useEffect, useState } from "react";
-import { applyMiddleware } from "redux";
-import thunk from "redux-thunk";
+import React from 'react';
+import useMiddleware from 'react-usemiddleware';
 import { createLogger } from "redux-logger";
-import { useMiddleware } from "react-usemiddleware";
+import thunk from "redux-thunk";
 
 const logger = createLogger();
 const middlewares = [thunk, logger];
@@ -50,35 +47,21 @@ const reducer = (state, action) => {
   }
 };
 
-function App() {
-  const [state, dispatch] = useMiddleware(middlewares, reducer, 0);
-  const [fetched, setFetched] = useState(false);
-  const loadInit = () =>
-    setTimeout(() => dispatch({ type: "SET", payload: 15 }), 1000);
+const App = (props) => {
+  const [count, dispatch] = useMiddleware(middlewares, reducer, 0);
+  const asyncSetCount = () => setTimeout(() => dispatch({ type: "SET", payload: 15 }), 1000);
   const incCount = () => dispatch({ type: "INC" });
   const decCount = () => dispatch({ type: "DEC" });
-  const setCount = payload => dispatch({ type: "SET", payload });
-  useEffect(
-    () => {
-      if (!fetched) {
-        dispatch(loadInit());
-        setFetched(true);
-      }
-    },
-    [fetched]
-  );
+
   return (
     <div className="App">
       <button onClick={decCount}>[-]</button>
-      <span>{state}</span>
+      <span>{count}</span>
       <button onClick={incCount}>[+]</button>
+      <button onClick={asyncSetCount}>Async</button>
     </div>
   );
 }
-
-const rootElement = document.getElementById("root");
-ReactDOM.render(<App />, rootElement);
-
 ```
 
 ## Live example
