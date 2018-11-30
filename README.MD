@@ -1,4 +1,4 @@
-# REACT-USEMIDDLEWARE
+# React `useMiddleware` hook
 
 Redux compatible [middleware](https://redux.js.org/advanced/middleware) provider for React >=16.7 [Hooks](https://reactjs.org/docs/hooks-intro.html)
 
