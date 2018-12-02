@@ -31,40 +31,49 @@ Takes 3 parameters:
 ## Example
 
 ```
-import React from 'react';
-import useMiddleware from 'react-usemiddleware';
-import { createLogger } from "redux-logger";
+import React from "react";
+import ReactDOM from "react-dom";
+import { useReducer, useEffect, useState } from "react";
+import { applyMiddleware } from "redux";
 import thunk from "redux-thunk";
+import { createLogger } from "redux-logger";
+import useMiddleware from "react-usemiddleware";
 
 const logger = createLogger();
 const middlewares = [thunk, logger];
 
+const initState = {
+  data: "not loaded"
+};
+
 const reducer = (state, action) => {
   switch (action.type) {
-    case "INC":
-      return state + 1;
-    case "DEC":
-      return state - 1;
-    case "SET":
-      return action.payload;
+    case "LOAD":
+      return { data: "loading..." };
+    case "LOADED":
+      return { data: action.payload };
     default:
       return state;
   }
 };
 
-const App = (props) => {
-  const [count, dispatch] = useMiddleware(reducer, 0, middlewares);
+const loadAction = () => async dispatch => {
+  dispatch({ type: "LOAD" });
+  const res = await fetch("https://jsonplaceholder.typicode.com/todos/1");
+  const { title: payload } = await res.json();
+  dispatch(loadedAction(payload));
+};
 
-  const thunkAction = dispatch(() => setTimeout(() => dispatch({ type: "SET", payload: 7 })), 1000);
-  const incCount = () => dispatch({ type: "INC" });
-  const decCount = () => dispatch({ type: "DEC" });
+const loadedAction = payload => {
+  return { type: "LOADED", payload };
+};
 
+function App() {
+  const [state, dispatch] = useMiddleware(reducer, initState, middlewares);
   return (
     <div className="App">
-      <button onClick={decCount}>[-]</button>
-      <span>{count}</span>
-      <button onClick={incCount}>[+]</button>
-      <button onClick={thunkAction}>Async</button>
+      <button onClick={() => dispatch(loadAction())}>LOAD</button>
+      <span>{state.data}</span>
     </div>
   );
 }
@@ -72,7 +81,9 @@ const App = (props) => {
 
 ## Live example
 
-A [demo](https://codesandbox.io/s/48ovynqr97) can be found here
+A [live demo](https://codesandbox.io/s/48ovynqr97) can be found here
+
+![live demo](./demo.gif)
 
 
 ## Contributions
