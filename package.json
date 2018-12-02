@@ -41,6 +41,7 @@
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "cross-env": "^5.2.0",
-    "rifraf": "^2.0.3"
+    "rifraf": "^2.0.3",
+    "rimraf": "^2.6.2"
   }
 }
