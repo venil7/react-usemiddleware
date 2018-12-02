@@ -6,7 +6,7 @@
 Redux compatible [middleware](https://redux.js.org/advanced/middleware) provider for React >=16.7 [Hooks](https://reactjs.org/docs/hooks-intro.html)
 
 **react-useMiddleware** allows you to use [all existing Redux middlewares](https://github.com/xgrommx/awesome-redux#react---a-javascript-library-for-building-user-interfaces) with React's new feature called hooks.
-It introduces new hook called `useMiddleware`, which is a wrapper arounf `useReducer`, but allows you to pass a list of middlewares to be used.
+It introduces new hook called `useMiddleware`, which is a wrapper around `useReducer`, but also allows you to pass an optional list of middlewares to be used.
 
 ## Install
 ```
@@ -16,7 +16,7 @@ $ yarn add react-usemiddleware
 
 ## API
 
-you can use `useMiddleware` as a straight replacement for `useReducer`, and optionally pass 3rd parameter - an array of middlewares to be applied to a dispatch function.
+You can use `useMiddleware` as a straight replacement for `useReducer`, and optionally pass 3rd parameter - an array of middlewares to be applied to a dispatch function.
 
 ```
  const [state, dispatch] = useMiddleware(reducer, initialState, middlewares = []);
