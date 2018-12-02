@@ -1,7 +1,7 @@
 import { useReducer } from 'react';
 import { applyMiddleware } from 'redux';
 
-const useMiddleware = (middlewares, reducer, initState) => {
+const useMiddleware = (reducer, initState, middlewares = []) => {
   const [state, dispatch] = useReducer(reducer, initState);
   const getStore = () => ({ dispatch, getState: () => state });
   const store = applyMiddleware(...middlewares)(getStore)();

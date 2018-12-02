@@ -5,26 +5,28 @@
 
 Redux compatible [middleware](https://redux.js.org/advanced/middleware) provider for React >=16.7 [Hooks](https://reactjs.org/docs/hooks-intro.html)
 
-**React-useMiddleware** allows you to use Redux existing middleware with React's new feature called hooks.
-It introduces new hook called `useMiddleware`
+**react-useMiddleware** allows you to use [all existing Redux middlewares](https://github.com/xgrommx/awesome-redux#react---a-javascript-library-for-building-user-interfaces) with React's new feature called hooks.
+It introduces new hook called `useMiddleware`, which is a wrapper arounf `useReducer`, but allows you to pass a list of middlewares to be used.
 
 ## Install
 ```
 $ npm install react-usemiddleware --save
-$ yarn add react-middleware
+$ yarn add react-usemiddleware
 ```
 
 ## API
 
+you can use `useMiddleware` as a straight replacement for `useReducer`, and optionally pass 3rd parameter - an array of middlewares to be applied to a dispatch function.
+
 ```
- const [state, dispatch] = useMiddleware(middlewares, reducer, initialState);
+ const [state, dispatch] = useMiddleware(reducer, initialState, middlewares = []);
 
 ```
 
 Takes 3 parameters:
- - `middlewares` - array of middlewares, eg, `[thunk, createLogger, saga]`
  - `reducer`, same as passed into `useReducer` hook
  - `initialState`, same as passed into `useReducer` hook
+ - `middlewares` - array of middlewares, eg, `[thunk, createLogger, saga]`
 
 ## Example
 
@@ -51,8 +53,9 @@ const reducer = (state, action) => {
 };
 
 const App = (props) => {
-  const [count, dispatch] = useMiddleware(middlewares, reducer, 0);
-  const asyncSetCount = () => setTimeout(() => dispatch({ type: "SET", payload: 15 }), 1000);
+  const [count, dispatch] = useMiddleware(reducer, 0, middlewares);
+
+  const thunkAction = dispatch(() => setTimeout(() => dispatch({ type: "SET", payload: 7 })), 1000);
   const incCount = () => dispatch({ type: "INC" });
   const decCount = () => dispatch({ type: "DEC" });
 
@@ -61,7 +64,7 @@ const App = (props) => {
       <button onClick={decCount}>[-]</button>
       <span>{count}</span>
       <button onClick={incCount}>[+]</button>
-      <button onClick={asyncSetCount}>Async</button>
+      <button onClick={thunkAction}>Async</button>
     </div>
   );
 }
